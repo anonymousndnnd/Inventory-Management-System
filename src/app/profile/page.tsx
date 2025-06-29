@@ -131,7 +131,7 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    {user.inventory.map((item: any, index: number) => (
+                    {user.inventory.map((item: InventoryItem, index: number) => (
                       <Card
                       key={index}
                       onClick={() => router.push(`/profile/${item._id}`)}
