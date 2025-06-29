@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import connect from "@/dbconnect/connectDb";
 import User from "../../../../../models/userModel";
-import jwt from "jsonwebtoken"
+
 
 connect()
 

@@ -31,10 +31,17 @@ export default function LoginPage() {
       console.log("Login success",response.data)
       // yaha router mein push karne se home route toh same rehta hai bss postfix mein jo hai wo change ho jaata hai 
       router.push("/profile")
-    } catch (error:any) {
-        toast.error("Failed to Login");
-        console.log("Login Failed")  
-    }
+    } catch (error: unknown) {
+  toast.error("Failed to Login");
+  
+  if (error instanceof Error) {
+    console.error("Login Failed:", error.message);
+    // Optional: Set error state if needed
+    // setLoginError(error.message);
+  } else {
+    console.error("Login Failed with unknown error:", error);
+  }
+}
     finally{
       setLoading(false)
     }
@@ -118,7 +125,9 @@ export default function LoginPage() {
                   <Checkbox id="remember" className="border border-gray-400 rounded-sm"/>
                   <Label htmlFor='remember' className="text-gray-600 ">Remember me</Label>
                 </div>
-                <a href="/" className='text-sm text-gray-600  '>Forgot Password</a>
+                <Link href="/" className='text-sm text-gray-600'>
+                  Forgot Password
+                </Link>
               </div>
               <Button type='submit' className='w-full mt-5'>{loading ? (
     <div className="flex items-center justify-center gap-2">

@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { useState,useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { NextRequest,NextResponse } from "next/server";
+import Link from "next/link";
 import Cookies from "js-cookie"
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -66,7 +66,7 @@ export default function Navbar({
   className,
 }: NavbarProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [loading,setLoading]=useState(false)
+  
   const router = useRouter();
   
   useEffect(() => {
@@ -87,20 +87,19 @@ export default function Navbar({
   const onLogout=async()=>{
       try {
         //setLoading jab tak true rahegas button disable rahega 
-        setLoading(true)
+        
         const response=await axios.get("/api/users/logout")
         toast.success("LoggedOut Successfully");
         console.log("Logout success",response.data)
         // yaha router mein push karne se home route toh same rehta hai bss postfix mein jo hai wo change ho jaata hai 
         router.push("/")
-      } catch (error:any) {
-          toast.error("Failed to Logout");
-          console.log("Login Failed")
-          
-      }
-      finally{
-        setLoading(false)
-      }
+      } catch (error) {
+          const errorMessage =
+            error instanceof Error ? error.message : "Failed to logout";
+          toast.error(errorMessage);
+          console.error("Logout Failed:", error);
+        }
+      
     }
     
   return (
@@ -125,8 +124,8 @@ export default function Navbar({
                 <Button variant="destructive" onClick={onLogout}>
                   Logout
                 </Button>
-                <Button variant="default" asChild >
-                  <a href="/profile">Dashboard</a>
+                <Button variant="default" asChild>
+                  <Link href="/profile">Dashboard</Link>
                 </Button>
               </>
             ) : (

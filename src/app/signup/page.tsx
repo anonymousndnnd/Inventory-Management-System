@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import {motion} from "framer-motion"
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Checkbox } from '@/components/ui/checkbox'
+
 import { Label } from '@/components/ui/label'
 import {Eye,EyeOff,Mail,Github} from "lucide-react"
 import Link from 'next/link'
@@ -30,9 +30,12 @@ export default function LoginPage() {
       console.log("Login success",response.data)
       // yaha router mein push karne se home route toh same rehta hai bss postfix mein jo hai wo change ho jaata hai 
       router.push("/login")
-    } catch (error:any) {
-        console.log("Signup Failed")
-    }
+    } catch (error: unknown) {
+        console.log("Signup Failed");
+        if (error instanceof Error) {
+          console.log(error.message);
+        }
+      }
     finally{
       setLoading(false)
     }

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 
 export default function UpdateItemPage(){
   const { imageid } = useParams();
+  console.log(imageid);
   
   const [loading, setLoading] = useState(true);
   const [preview, setPreview] = useState<string | null>(null);

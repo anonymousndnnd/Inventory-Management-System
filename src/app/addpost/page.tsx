@@ -41,12 +41,25 @@ export default function AddPostPage() {
         toast.success("Item added to inventory!");
         router.push("/profile");
     }
-     catch (error) {
-      toast.error(isEdit ? "Failed to update item" : "Failed to add item");
-      console.error(error);
-    } finally {
+     catch (error: unknown) {
+        const errorMessage = isEdit ? "Failed to update item" : "Failed to add item";
+        toast.error(errorMessage);
+
+        if (error instanceof Error) {
+          console.error(`${errorMessage}:`, error.message);
+          // Optional: Show more specific error if available
+          if ('response' in error && typeof error.response === 'object' && error.response !== null) {
+            const serverError = (error.response as { data?: { message?: string } })?.data?.message;
+            if (serverError) {
+              toast.error(serverError);
+            }
+          }
+        } else {
+          console.error('Unexpected error:', error);
+        }
+      }finally {
       setLoading(false);
-    }
+      }
   };
 
   return (

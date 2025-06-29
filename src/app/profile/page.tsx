@@ -6,16 +6,29 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import {
   Card,
-  CardAction,
+
   CardContent,
   CardDescription,
-  CardFooter,
+
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+interface InventoryItem {
+  _id: string;
+  title: string;
+  amount: number;
+  quantity: number;
+  image: string;
+}
+
+interface UserData {
+  username: string;
+  email?: string;
+  inventory: InventoryItem[];
+}
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] =  useState<UserData | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

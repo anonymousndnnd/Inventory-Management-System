@@ -2,10 +2,10 @@
 
 import {
   Card,
-  CardAction,
+  
   CardContent,
   CardDescription,
-  CardFooter,
+
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -16,9 +16,17 @@ import axios from 'axios';
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
+interface Item {
+  _id: string;
+  title: string;
+  amount: number;
+  quantity: number;
+  image: string;
+}
+
 export default function ItemPage() {
   const { imageid } = useParams(); 
-  const [item, setItem] = useState<any>(null);
+  const [item, setItem] = useState<Item | null>(null);
   const [loading, setLoading] = useState(true);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState('');
@@ -36,8 +44,9 @@ export default function ItemPage() {
         setItem(response.data.item);
       } catch (err: any) {
         console.error('Failed to fetch item:', err);
-        setError(err.response?.data?.error || 'Something went wrong');
-      } finally {
+        setError(err?.response?.data?.error || err?.message || 'Something went wrong');
+        toast.error(err?.response?.data?.error || 'Operation failed');
+      }finally {
         setLoading(false);
       }
     };
@@ -47,16 +56,22 @@ export default function ItemPage() {
   const deleteItem=async()=>{
     try {
       setDeleting(true)
-      const response = await axios.post('/api/users/deleteitem', {
+          await axios.post('/api/users/deleteitem', {
           id: imageid,
         });
         toast.success("Item Deleted Successfully");
         router.push("/profile");
 
-    } catch (error:any) {
-      toast.success("Failed to delete Item");
-        console.error('Failed to fetch item:', error);
-        setError(error.response?.data?.error || 'Something went wrong');
+    } catch (error: unknown) {
+      toast.error("Failed to delete Item");
+      
+      if (error instanceof Error) {
+        console.error('Failed to delete item:', error.message);
+        setError(error.message);
+      } else {
+        console.error('Failed to delete item:', error);
+        setError('Something went wrong');
+      }
     }
     finally{
       setDeleting(false)

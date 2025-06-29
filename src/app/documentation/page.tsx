@@ -41,7 +41,7 @@ export default function DocumentationPage() {
         <section className="mb-8">
           <h3 className="text-xl font-semibold mb-2">1. Add a New Inventory Item</h3>
           <p className="text-gray-700">
-            Use the <strong>"Add Item"</strong> button to create a new entry. You can upload an image, enter title, quantity, and price.
+            Use the <strong>&quot;Add Item&quot;</strong> button to create a new entry.
           </p>
         </section>
 
