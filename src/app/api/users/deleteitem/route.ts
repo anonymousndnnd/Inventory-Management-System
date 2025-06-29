@@ -9,7 +9,6 @@ connect();
 export async function POST(request:NextRequest){
   try {
     const reqBody=await request.json()
-    const {id}=reqBody
     const {id:itemId}=reqBody
     const user=await User.findOne({ "inventory._id": itemId });
     if (!user) {

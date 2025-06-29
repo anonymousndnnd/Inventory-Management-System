@@ -12,7 +12,7 @@ export async function POST(request:NextRequest) {
 
     // one more verification of user 
     const token=request.cookies.get("token")?.value || ""
-    const decodedToken:any=jwt.verify(token,process.env.SECRET_KEY!)
+    const decodedToken=jwt.verify(token,process.env.SECRET_KEY!)  as jwt.JwtPayload;
     const userid=decodedToken.id
     const user = await User.findById(userid);
     if (!user) {

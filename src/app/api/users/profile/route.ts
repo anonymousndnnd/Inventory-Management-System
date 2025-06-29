@@ -13,7 +13,7 @@ export async function POST(request:NextRequest) {
     if(!token) {
       return NextResponse.json({ error: "Not logged in" }, { status: 401 });
     }
-    const decodedToken:any=jwt.verify(token,process.env.SECRET_KEY!)
+    const decodedToken=jwt.verify(token,process.env.SECRET_KEY!) as jwt.JwtPayload;
     console.log("Decoded Token is:",decodedToken)
     const user=await User.findOne({_id:decodedToken.id}).select("-password")
     console.log("User is",user)

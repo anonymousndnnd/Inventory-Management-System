@@ -1,7 +1,7 @@
 import { NextRequest,NextResponse } from "next/server";
 import connect from "@/dbconnect/connectDb";
 import User from "../../../../../models/userModel";
-import bcryptjs from 'bcryptjs'
+import bcryptjs from "bcryptjs"
 
 connect();
 
@@ -35,7 +35,11 @@ export async function POST(request:NextRequest){
       savedUser
     })
 
-  } catch (error: any) {
-      return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
-    }
+  } catch (error) {
+    console.error("POST /register error:", error);
+    return NextResponse.json(
+      { error: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }

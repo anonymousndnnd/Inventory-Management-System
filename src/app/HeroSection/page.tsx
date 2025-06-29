@@ -19,7 +19,7 @@ function HeroSection() {
             className="mt-4 font-normal text-base md:text-lg text-neutral-300 max-w-lg mx-auto"
             >Effortlessly track, manage, and scale your inventory in one powerful dashboard.</p>
             <div className="mt-4">
-                <Link href={"/courses"}>
+                <Link href={"/profile"}>
                     <Button borderRadius="1.75rem"
                     className="bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800">
                       Go To DashBoard

@@ -18,8 +18,8 @@ export async function POST(request:NextRequest) {
     const item = user.inventory.id(itemId);
     return NextResponse.json({ item });
   } 
-  catch (error:any) {
-    console.error("Error finding item:");
+   catch (error) {
+    console.error("Error finding item:", error);
     return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

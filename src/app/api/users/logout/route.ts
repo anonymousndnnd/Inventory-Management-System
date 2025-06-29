@@ -10,17 +10,17 @@ connect();
 export async function GET(request:NextRequest){
   try {
     const token=request.cookies.get("token")?.value || ""
-    console.log("Token is ",token)
+    console.log("Token is ",token);
     if (!token) {
       return NextResponse.json({ error: "Not logged in" }, { status: 401 });
     }
     
-    const decodedToken:any=jwt.verify(token,process.env.SECRET_KEY!)
+    const decodedToken=jwt.verify(token,process.env.SECRET_KEY!) as jwt.JwtPayload;
     console.log(decodedToken)
     await User.findByIdAndUpdate(decodedToken.id, {
       $set: { isVerified: false }
     });
-    const response=NextResponse.json({
+    const response=NextResponse.json({  
       
       message:"Logout Successfully",
       success:true
@@ -32,7 +32,8 @@ export async function GET(request:NextRequest){
     })
 
     return response;
-  } catch (error: any) {
-      return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
-    }
+  } catch (error) {
+    console.error("GET /logout error:", error);
+    return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
+  }
 }
