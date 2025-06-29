@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 
-export default function updateItemPage(){
+export default function UpdateItemPage(){
   const { imageid } = useParams();
   
   const [loading, setLoading] = useState(true);

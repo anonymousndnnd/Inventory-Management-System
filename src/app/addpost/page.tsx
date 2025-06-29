@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
