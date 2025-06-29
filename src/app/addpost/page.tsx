@@ -1,6 +1,6 @@
 "use client";
 import { Suspense } from "react";
-import AddPostContent from "./addpostcontent/page";
+import AddPostContent from "./AddPostContent"
 
 export default function AddPostPage() {
   return (
