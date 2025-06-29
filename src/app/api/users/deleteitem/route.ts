@@ -6,6 +6,14 @@ import User from "../../../../../models/userModel";
 
 connect();
 
+interface InventoryItem {
+  _id: string,
+  image: string;
+  title: string;
+  amount: number;
+  quantity: number;
+}
+
 export async function POST(request:NextRequest){
   try {
     const reqBody=await request.json()
@@ -15,7 +23,7 @@ export async function POST(request:NextRequest){
       return NextResponse.json({ error: "Item not found" }, { status: 404 });
     }
     
-    user.inventory = (user.inventory as any[]).filter(item => item._id.toString() !== itemId);
+    user.inventory = (user.inventory as InventoryItem[]).filter(item => item._id.toString() !== itemId);
     await user.save();
      return NextResponse.json({ message: "Item deleted successfully" });
     

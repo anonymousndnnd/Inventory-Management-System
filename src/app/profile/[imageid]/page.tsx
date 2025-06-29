@@ -42,11 +42,11 @@ export default function ItemPage() {
           id: imageid,
         });
         setItem(response.data.item);
-      } catch (err: any) {
-        console.error('Failed to fetch item:', err);
-        setError(err?.response?.data?.error || err?.message || 'Something went wrong');
-        toast.error(err?.response?.data?.error || 'Operation failed');
-      }finally {
+      } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Operation failed';
+      setError(errorMessage);
+      toast.error(errorMessage);
+    }finally {
         setLoading(false);
       }
     };

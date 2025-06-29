@@ -37,8 +37,12 @@ export default function ProfilePage() {
       try {
         const response = await axios.post("/api/users/profile");
         setUser(response.data.data);
-      } catch (error) {
-        console.log("Failed to fetch user", error);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error("Failed to fetch user:", error.message);
+        } else {
+          console.error("Failed to fetch user with unknown error type:", error);
+        }
       } finally {
         setLoading(false);
       }

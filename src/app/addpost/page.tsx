@@ -9,6 +9,7 @@ export default function AddPostPage() {
   const searchParams = useSearchParams();
   const isEdit = searchParams.get("edit") === "true";
   const imageid = searchParams.get("id");
+  console.log(imageid)
 
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState<string | null>(null);

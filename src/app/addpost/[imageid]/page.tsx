@@ -29,9 +29,13 @@ export default function UpdateItemPage(){
           });
           setItem(response.data.item);
           setPreview(response.data.item.image);
-        } catch (err: any) {
-          console.error('Failed to fetch item:', err);
-        } finally {
+        } catch (err: unknown) {
+          if (err instanceof Error) {
+            console.error('Failed to fetch item:', err.message);
+          } else {
+            console.error('Failed to fetch item:', err);
+          }
+        }finally {
           setLoading(false);
         }
       };
